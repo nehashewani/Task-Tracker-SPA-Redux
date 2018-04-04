@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink,Link } from 'react-router-dom';
 import { NavItem } from 'reactstrap';
 import { connect } from 'react-redux';
 import utils from '../util';
@@ -22,8 +22,12 @@ function Nav(props) {
           <NavLink to="/viewtasks" href="#" className="nav-link">View Tasks</NavLink>
         </NavItem>
       </ul>
+	<span className="navbar-text">
+                {props.user.name}
+        </span>
+
       <span className="navbar-text">
-        Test
+	<a href="javascript:void(0)" className="nav-link" onClick={() => {utils.logout();utils.redirect("/"); } }>Logout</a>
       </span>
     </nav>
 		);
@@ -42,7 +46,6 @@ function Nav(props) {
         </NavItem>
       </ul>
       <span className="navbar-text">
-        Test
       </span>
     </nav>
   );
@@ -50,7 +53,8 @@ function Nav(props) {
 
 function state2props(state){
 	return {
-		token: state.token
+		token: state.token,
+		user: state.user
 	};
 }
 

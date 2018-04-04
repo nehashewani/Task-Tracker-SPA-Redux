@@ -16,11 +16,14 @@ class Utils{
 			redir: data
 		});
 	}
-	clear_redirect(){
+	clear_redirect(path="/"){
 		store.dispatch({
 			type:'CLEAR_REDIRECT'
 		});
-		return "/";
+		return path;
+	}
+	logout(){
+		store.dispatch({type:"LOGOUT"});
 	}
 }
 

@@ -8,6 +8,7 @@ import LoginForm from './loginform';
 import UserRegForm from './user_register';
 import TaskForm from './task_form';
 import TaskList from './tasklist';
+import AddTaskForm from './addform';
 import api from '../api';
 import utils from '../util';
 
@@ -32,8 +33,7 @@ let Tracker = connect((state) => state)((props) => {
 	let content = <LoginForm />;
 	console.log("Tracker logadin",props.state.token);
 	if (!utils.is_empty(props.token)){
-		utils.clear_redirect();
-		api.get_tasks(props.user.id);
+		utils.clear_redirect();	
 		content = <h1> Welcome to TaskTracker v3, {props.user.name}</h1>;
 	}
 	return (
@@ -49,15 +49,19 @@ let Tracker = connect((state) => state)((props) => {
 			/>
 			<Route path="/addtask" exact={true} render = {() =>
                                 <div>
-					<TaskForm />
+					<AddTaskForm />
 				</div>
                         }
 			/>
-			<Route path="/viewtasks" exact={true} render ={() =>
-				<TaskList />
-			}
-                        />
-
+			<Route path="/viewtasks" render={() =>
+				<TaskList tasks={props.tasks.filter((t) => t.user_id == props.user.id )} redirect={props.redirect} />
+        		}/>
+			<Route path="/edittask" exact={true} render = {() =>
+                                <div>
+                                        <TaskForm />
+                                </div>
+                        }
+			/>
 			</div>
 		</Router>
 	);

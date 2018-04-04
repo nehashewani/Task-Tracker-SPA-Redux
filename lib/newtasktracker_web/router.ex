@@ -26,5 +26,6 @@ defmodule NewtasktrackerWeb.Router do
      resources "/tasks", TaskController, except: [:new, :edit] 
      post "/token", TokenController, :create
      get "/tasks/user/:user", TaskController, :get_user_tasks
+     put "/tasks", TaskController, :update
   end
 end

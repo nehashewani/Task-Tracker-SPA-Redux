@@ -17,6 +17,9 @@ function TaskForm(props){
 			data[tgt.attr('data-parent')]={};
 			data[tgt.attr('data-parent')][tgt.attr('name')] = tgt.val();
 		}
+		else if(tgt.attr('name') == "completion_status"){
+			data[tgt.attr('name')] = tgt.is(":checked");
+		}
 		else
     			data[tgt.attr('name')] = tgt.val();
 		if (tgt.attr('name') == "hour")
@@ -42,7 +45,7 @@ function TaskForm(props){
 			alert("Task description is required.");
 			return;
 		}
-		else if(utils.is_empty(props.task.user.id)){
+		else if(utils.is_empty(props.task.user_id)){
 			alert("User is required for task.");
 			return;
 		}
@@ -50,10 +53,15 @@ function TaskForm(props){
 			alert("Time in hour or minutes is required");
 			return;
 		}
+		if(props.task.is_new)
 		api.add_task(props.task);
+		else
+		api.update_task(props.task);
 	}
+	console.log("From task form", props.redirect);
 	if(props.redirect.can_redirect)
-		return <Redirect to={utils.clear_redirect()} />
+		return <Redirect to={props.redirect.redirect_to} />
+	else
 	return (<div className="">
 			<h1>{ (props.task.is_new) ? "Add" : "Update" } Task</h1>
 			<Form>
@@ -81,13 +89,13 @@ function TaskForm(props){
 				</FormGroup>
 				<FormGroup>
 					<Label for="user">User</Label>
-					<Input type="select" data-parent="user" name="id" id="user" value={props.task.user.id} onChange={update} >
-						<option key="-1" value="">Select User</option>
+					<Input type="select"  name="user_id" id="user" value={props.task.user_id} onChange={update} >
+						<option value="">Select User</option>
 						{ users }
 					</Input>
 				</FormGroup>
 				<FormGroup check>
-					<Input type="checkbox" value={props.task.completion_status} name="completion_status" onChange={update}/> {' '} Completed
+					<Input type="checkbox" checked={props.task.completion_status} value={props.task.completion_status} name="completion_status" onChange={update}/> {' '} Completed
 				</FormGroup>
 					<Button onClick={submit_task}>Submit</Button>
 				</Form>

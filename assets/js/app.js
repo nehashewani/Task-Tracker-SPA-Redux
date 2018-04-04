@@ -21,7 +21,10 @@ import "phoenix_html"
 // import socket from "./socket"
 import tracker_init from './cs/tracker';
 import store from './store';
+import api from './api';
+
 
 $(function(){
+	api.request_tasks();
 	tracker_init(store)
 });

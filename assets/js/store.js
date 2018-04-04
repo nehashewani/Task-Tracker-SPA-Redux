@@ -15,6 +15,8 @@ import deepFreeze from 'deep-freeze';
 
 function tasks(state=[], action){
 	switch(action.type){
+		case 'TASKS_LIST':
+    			return [...action.posts];
 		case 'ADD_TASK':
 			return [action.task, ...state];
 		default:
@@ -26,6 +28,8 @@ function user(state={}, action){
 	switch(action.type){
 		case 'LOGIN':
 			return action.user;
+		case 'LOGOUT':
+			return {}
 		default:
 			return state;
 	}
@@ -44,6 +48,8 @@ function token(state=null, action){
 	switch(action.type){
 		case 'SET_TOKEN':
 			return action.token;
+		case 'LOGOUT':
+			return null;
 		default:
 			return state;
 	}
@@ -92,8 +98,9 @@ let taskObj= {
 	user:{
 		id:undefined
 	},
+	user_id: "",
 	hour:"",
-	minute:0,
+	minute:"",
 	time:0,
 	is_new:true,
 };
@@ -103,6 +110,8 @@ function task(state=taskObj, action){
 			return Object.assign({}, state, action.task);
 		case 'CLEAR_TASK':
 			return taskObj;
+		case 'EDIT_TASK':
+			return Object.assign({}, state, action.task);
 		default:
 			return state;
 	}

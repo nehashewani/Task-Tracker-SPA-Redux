@@ -34,7 +34,7 @@ function UserRegForm(props){
 	}
 	if (props.redirect.can_redirect){
 		
-		return <Redirect to={utils.clear_redirect()} />
+		return <Redirect to={utils.clear_redirect(props.redirect.redirect_to)} />
 	}
 	else	
 	return (

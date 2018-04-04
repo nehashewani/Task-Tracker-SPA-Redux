@@ -8,6 +8,7 @@ defmodule NewtasktrackerWeb.TaskController do
 
   def index(conn, _params) do
     tasks = Tasks.list_tasks()
+    #IO.puts(inspect(tasks))
     render(conn, "index.json", tasks: tasks)
   end
 
@@ -16,7 +17,7 @@ defmodule NewtasktrackerWeb.TaskController do
       conn
       |> put_status(:created)
       |> put_resp_header("location", task_path(conn, :show, task))
-      |> render("show.json", task: task)
+      |> render("task.json", task: task)
     end
   end
 

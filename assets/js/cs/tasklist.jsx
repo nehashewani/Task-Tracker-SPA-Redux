@@ -10,7 +10,7 @@ function TaskList(props){
 	function edit(id){
 		api.get_task(id);
 	}	
-	let taskList = props.tasks.map((t) => <tr><td>{t.title}</td><td>{t.description}</td><td>{parseInt(t.time/60)}</td><td>{t.time%60}</td><td>{(t.completion_status) ? "Yes" : "No"}</td><td>> <Button onClick={() => {api.get_task(t.id);} }>>Edit</Button></td><td><Button onClick={() => {api.delete_task(t.id);} }>Delete</Button></td></tr>);
+	let taskList = props.tasks.map((t) => <tr><td>{t.title}</td><td>{t.description}</td><td>{parseInt(t.time/60)}</td><td>{t.time%60}</td><td>{(t.completion_status) ? "Yes" : "No"}</td><td> <Button onClick={() => {api.get_task(t.id);} }>Edit</Button></td><td><Button onClick={() => {api.delete_task(t.id);} }>Delete</Button></td></tr>);
 	console.log("From tasklist:", props.redirect,utils.clear_redirect());
 	if(props.redirect.can_redirect){
 		utils.clear_redirect();
